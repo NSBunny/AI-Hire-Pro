@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in - Google Accounts</title>
+  <style>
+    :root {
+      --bg-color: #131314;
+      --card-bg: #1e1f20;
+      --text-primary: #e3e3e3;
+      --text-secondary: #c4c7c5;
+      --border-color: #444746;
+      --hover-bg: #2d2f31;
+      --accent-color: #a8c7fa;
+      --font-family: "Google Sans", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-color: #f0f4f9;
+        --card-bg: #ffffff;
+        --text-primary: #1f1f1f;
+        --text-secondary: #5e5e5e;
+        --border-color: #c4c7c5;
+        --hover-bg: #f2f2f2;
+        --accent-color: #0b57d0;
+      }
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: var(--font-family);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      background-color: var(--card-bg);
+      border-radius: 28px;
+      padding: 40px;
+      box-sizing: border-box;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      border: 1px solid var(--border-color);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo {
+      width: 28px;
+      height: 28px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 400;
+      margin: 0 0 8px 0;
+      line-height: 1.3;
+      letter-spacing: -0.2px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin: 0 0 32px 0;
+    }
+
+    .account-list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .account-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      background: none;
+      border: none;
+      border-radius: 100px;
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: background-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .account-item:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #6366f1;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .avatar-icon-wrapper {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--hover-bg);
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .account-details {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .account-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .account-email {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .use-another {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      background: none;
+      border: none;
+      border-radius: 100px;
+      color: var(--accent-color);
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .use-another:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .footer {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      text-align: left;
+      width: 100%;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .custom-form {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .input-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .text-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      background-color: transparent;
+      color: var(--text-primary);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--accent-color);
+      color: #131314;
+      border: none;
+      border-radius: 100px;
+      font-family: inherit;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .btn-submit:hover {
+      opacity: 0.9;
+    }
+
+    .btn-back {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <svg class="logo" viewBox="0 0 24 24">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+    </svg>
+
+    <div id="choose-account-view" style="width: 100%;">
+      <h1>Choose an account</h1>
+      <div class="subtitle">to continue to AIHire Pro</div>
+
+      <div class="account-list">
+        <!-- Your primary actual Google account -->
+        <button class="account-item" onclick="selectAccount('G. Banidhar', 'nsbanidhar123@gmail.com')">
+          <div class="avatar" style="background-color: #8e24aa;">G</div>
+          <div class="account-details">
+            <span class="account-name">G. Banidhar</span>
+            <span class="account-email">nsbanidhar123@gmail.com</span>
+          </div>
+        </button>
+
+        <!-- Mock recruiter for testing recruiter features -->
+        <button class="account-item" onclick="selectAccount('Sarah Jenkins', 'recruiter@aihirepro.com')">
+          <div class="avatar" style="background-color: #0288d1;">S</div>
+          <div class="account-details">
+            <span class="account-name">Sarah Jenkins (Demo Recruiter)</span>
+            <span class="account-email">recruiter@aihirepro.com</span>
+          </div>
+        </button>
+      </div>
+
+      <button class="use-another" onclick="showCustomForm()">
+        <div class="avatar-icon-wrapper">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="8.5" cy="7" r="4" />
+            <line x1="20" y1="8" x2="20" y2="14" />
+            <line x1="23" y1="11" x2="17" y2="11" />
+          </svg>
+        </div>
+        Use another account
+      </button>
+
+      <div class="footer">
+        Before using this app, you can review AIHire Pro's <a href="#">Privacy Policy</a> and <a href="#">Terms of Service</a>.
+      </div>
+    </div>
+
+    <div id="custom-account-view" class="custom-form">
+      <h1>Sign in with Google</h1>
+      <div class="subtitle">Enter your details to sign in</div>
+
+      <div class="input-group">
+        <span class="input-label">Name</span>
+        <input type="text" id="custom-name" class="text-input" placeholder="Your Name">
+      </div>
+
+      <div class="input-group">
+        <span class="input-label">Email</span>
+        <input type="email" id="custom-email" class="text-input" placeholder="your.email@gmail.com">
+      </div>
+
+      <button class="btn-submit" onclick="submitCustomAccount()">Sign In</button>
+      <button class="btn-back" onclick="hideCustomForm()">Back to account list</button>
+    </div>
+  </div>
+
+  <script>
+    function selectAccount(name, email) {
+      let role = 'candidate';
+      if (email.includes('recruiter')) role = 'recruiter';
+      else if (email.includes('manager')) role = 'manager';
+      else if (email.includes('employee') || email.includes('jane.doe')) role = 'employee';
+      else if (email.includes('admin')) role = 'admin';
+
+      if (window.opener && typeof window.opener.onGoogleLoginSuccess === 'function') {
+        window.opener.onGoogleLoginSuccess({ name, email, role });
+      }
+      window.close();
+    }
+
+    function showCustomForm() {
+      document.getElementById('choose-account-view').style.display = 'none';
+      document.getElementById('custom-account-view').style.display = 'flex';
+      document.getElementById('custom-name').focus();
+    }
+
+    function hideCustomForm() {
+      document.getElementById('choose-account-view').style.display = 'block';
+      document.getElementById('custom-account-view').style.display = 'none';
+    }
+
+    function submitCustomAccount() {
+      const name = document.getElementById('custom-name').value.trim();
+      const email = document.getElementById('custom-email').value.trim();
+      if (!name || !email) return;
+
+      selectAccount(name, email);
+    }
+  </script>
+</body>
+</html>
