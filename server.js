@@ -1415,14 +1415,20 @@ app.post('/api/admin/content', async (req, res) => {
 });
 
 
-// Serve static frontend build files in production
-app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static frontend build files in production (non-Vercel only)
+if (process.env.VERCEL !== '1') {
+  app.use(express.static(path.join(__dirname, 'dist')));
 
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
+  app.get(/.*/, (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  });
+}
 
-// Start Express Listener
-app.listen(PORT, () => {
-  console.log(`AIHire Pro API Server is running on port ${PORT}`);
-});
+// Start Express Listener (only in local dev, not on Vercel)
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`AIHire Pro API Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
