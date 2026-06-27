@@ -1,5 +1,7 @@
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
+const os = require('os');
+const path = require('path');
 
 dotenv.config();
 
@@ -16,7 +18,7 @@ const sequelize = process.env.DATABASE_URL
     })
     : new Sequelize({
         dialect: 'sqlite',
-        storage: './database.sqlite',
+        storage: path.join(os.tmpdir(), 'database.sqlite'),
         logging: false
     });
 
